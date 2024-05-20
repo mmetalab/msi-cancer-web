@@ -106,11 +106,10 @@ layout = dbc.Container([
     State(component_id=id('mpiPlot'), component_property='figure'),
     Input(component_id=id('submit-button'),component_property='n_clicks'),
     Input(component_id=id('drpD_Sample_Select'),component_property='value'),
-    Input(component_id=id('drpD_Dimension_Select'),component_property='value'),
     Input(component_id=id('input-mz'),component_property='value'),
 )
 
-def update_MSI_Plot(fig,n_clicks,sample,dimension, mz):
+def update_MSI_Plot(fig,n_clicks,sample,mz):
     if n_clicks > 0:
         if sample == 'Control':
             data = MSI_data_control
@@ -120,7 +119,7 @@ def update_MSI_Plot(fig,n_clicks,sample,dimension, mz):
         coordinates, intensity_values_subsampled, mz_values_subsampled = data[0], data[1], data[2]
         image = ion_image(intensity_values_subsampled, coordinates, mz_values_subsampled, mz)
         fig = cf.update_MSIFigure(fig,image)
-        return fig
+    return fig
 
 @callback(
     Output(component_id=id('offCanv_cite'), component_property='is_open'),

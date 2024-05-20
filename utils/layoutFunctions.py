@@ -32,15 +32,6 @@ def make_NavBar():
             dbc.NavItem(dbc.NavLink('Introduction', href='/introduction')),
             dbc.NavItem(dbc.NavLink('Database', href='/database')),
             dbc.NavItem(dbc.NavLink('Visualization', href='/visualization')),
-            dbc.DropdownMenu(
-                children=[
-                    dbc.DropdownMenuItem('Cite', id='citeDropdown'),
-                    dbc.DropdownMenuItem('About Us', id='aboutUsDropdown'),
-                ],
-                nav=True,
-                in_navbar=True,
-                label='More',
-            ),
         ],
         brand='Spatial Metabolomics Visualization Web',
         brand_href='/introduction',
@@ -61,18 +52,17 @@ def make_IntroHeader(idFunc):
         dbc.Container([
             html.Div([
                 html.H2("Spatial Metabolomics for Gastric Cancer", className="display-4"),
-                dbc.Button("Cite", id=idFunc("btn_citeHeader"),color="success", outline=True)
             ], className='d-flex justify-content-between align-items-center mb-0'),
             
             html.Hr(className="mt-0 mb-1"),
             html.Div([
-                html.P("Metabolic biomarker discovery for gastric cancer using mass spectrometry imaging"),
+                html.P("Metabolic biomarker discovery for gastric cancer using mass spectrometry imaging."),
                 html.H4(id=idFunc('moreInfoIcon'), className="fa-solid fa-book-open ms-3 mt-1 primary")
             ], className='d-flex mb-0'),
             dbc.Collapse(
                 html.Div([
-                    "This page shows introduction to the project ",
-                    "MPI-VGAE.",
+                    "This page shows introduction to the project: ",
+                    "metabolic biomarker discovery by MSI.",
                     # html.Br(),"For detailed information of the procedure, see ",
                     # html.A("here", href="https://academic.oup.com/bib/article/24/4/bbad189/7176311", target="_blank")
                 ]),
@@ -383,18 +373,6 @@ def make_MSISelectionMenu(idFunc, genome_dict):
         ),
         html.Br(),
 
-        html.H6(["Select visualization type"],className='my-1'),
-        dcc.Dropdown(
-            id=idFunc('drpD_Dimension_Select'),
-            options = ['1D Trace','2D Heatmap'],
-            value='1D Trace', # Defaults to Isocortex
-            multi = False,
-            clearable=False,
-            className='my-1 mb-3'
-        ),
-
-        html.Br(),
-
         html.H6(["Input a m/z value"],className='my-1'),
         dcc.Input(
             id=idFunc('input-mz'),
@@ -408,8 +386,10 @@ def make_MSISelectionMenu(idFunc, genome_dict):
         dbc.Tooltip("Select the sample that you want to perform molecular abundance visualization on spatial metabolomics data.",
             target=idFunc("drpD_genome_Select"),placement="right"
         ),
-        dbc.Tooltip("Select the type of MSI data visualization",target=idFunc("drpD_matchSelector"),placement="right"),
-    ])
+        dbc.Tooltip("Input the m/z value that you want to visualize.",
+            target=idFunc("input-mz"),placement="right"
+
+        ),])
     return menu
 
 def MPI_CollapsableTable(idFunc):
@@ -1080,15 +1060,15 @@ def make_CC_licenseBanner(idFunc):
 
     banner = html.Div([
         html.Hr(className="mt-2 mb-2"),
-        html.P(["Web-app developed by ",
-            dcc.Link("Cheng Wang",
-                href="https://scholar.google.com/citations?user=UAZhchQAAAAJ&hl=en",
-                target="_blank", className="me-3"),
-        "See source code ",
-            dcc.Link("here",
-                href="https://github.com/mmetalab/mpi-vgae-web",
-                target="_blank"),
-        ]),
+        # html.P(["Web-app developed by ",
+        #     dcc.Link("Cheng Wang",
+        #         href="https://scholar.google.com/citations?user=UAZhchQAAAAJ&hl=en",
+        #         target="_blank", className="me-3"),
+        # "See source code ",
+        #     dcc.Link("here",
+        #         href="https://github.com/mmetalab/mpi-vgae-web",
+        #         target="_blank"),
+        # ]),
         html.A([
             html.Img([], alt="Creative Commons License",  
                 src="https://i.creativecommons.org/l/by/4.0/88x31.png")], 

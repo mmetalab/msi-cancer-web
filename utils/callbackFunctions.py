@@ -37,7 +37,7 @@ def update_MSIFigure(fig, ionimage):
     fig = px.imshow(ionimage,aspect="auto")
     # Customize X axis
     fig.update_xaxes(
-        title="X axis test"
+        title="X axis"
     )
     # Customize Y axis
     fig.update_yaxes(
