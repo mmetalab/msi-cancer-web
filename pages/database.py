@@ -20,7 +20,7 @@ id = cf.id_factory('database')
 # Full path of the data folder where to load raw data
 dataFolder = Path(__file__).parent.parent.absolute() / 'data'
 
-df = pd.read_csv(dataFolder/'mpidatabase/MPIDB_May2024.csv')
+df = pd.read_csv(dataFolder/'gastric_cancer_database.csv')
 
 # ------------------------------------------------------------------------------
 # LAYOUT
