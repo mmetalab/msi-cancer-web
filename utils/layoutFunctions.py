@@ -30,6 +30,7 @@ def make_NavBar():
     navbar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink('Introduction', href='/introduction')),
+            dbc.NavItem(dbc.NavLink('About', href='/about')),
             dbc.NavItem(dbc.NavLink('Database', href='/database')),
             dbc.NavItem(dbc.NavLink('Visualization', href='/visualization')),
         ],
@@ -70,6 +71,41 @@ def make_IntroHeader(idFunc):
                 is_open=False,
             ),
             dbc.Tooltip("More info.", target=idFunc("moreInfoIcon"), className='ms-1')
+            ],
+            fluid=True,
+            className="py-1 bg-light rounded-3",
+        ),
+        className="p-0 my-1",
+    )
+    return header
+
+def make_AboutHeader(idFunc):
+    """
+    Makes the header for the WFA page
+    """
+    # Main Title
+    header = html.Div(
+        dbc.Container([
+            html.Div([
+                html.H2("About the author", className="display-4"),
+            ], className='d-flex justify-content-between align-items-center mb-0'),
+            
+            html.Hr(className="mt-0 mb-1"),
+            html.Div([
+                html.P("Introduction to the project and author."),
+                html.H4(id=idFunc('moreInfoIcon'), className="fa-solid fa-book-open ms-3 mt-1 primary")
+            ], className='d-flex mb-0'),
+            # dbc.Collapse(
+            #     html.Div([
+            #         "This page shows introduction to the project: ",
+            #         "metabolic biomarker discovery by MSI.",
+            #         # html.Br(),"For detailed information of the procedure, see ",
+            #         # html.A("here", href="https://academic.oup.com/bib/article/24/4/bbad189/7176311", target="_blank")
+            #     ]),
+            #     id=idFunc("moreInfoCollapse"),
+            #     is_open=False,
+            # ),
+            # dbc.Tooltip("More info.", target=idFunc("moreInfoIcon"), className='ms-1')
             ],
             fluid=True,
             className="py-1 bg-light rounded-3",
@@ -172,6 +208,60 @@ def make_introductionText():
          },)
     return text
 
+
+def make_aboutText():
+    """
+    Makes the introduction text for the introduction page
+    """
+    text = html.Div([
+        html.P(
+            "Hi! I’m Flora Wang, a high school student in Vancouver passionate about cancer research. This website is a part of my research project: mass spectrometry imaging metabolomics reveals the spatial heterogeneity in gastric cancer. "
+            "I am interested in gastric cancer in particular because of my Asian heritage, as I discovered that Asian countries are affected by GC by a disproportionately high amount as compared to western countries. As well, many relatives on my mom’s side of the family, including my mom, have been diagnosed with gastrointestinal illnesses such as intestinal metaplasia which are precursors of gastric cancer. "
+            "Here in Canada, I’ve witnessed with first-hand experience how time-consuming the healthcare process can be. My mom took more than a year, from start to finish, to get diagnosed with intestinal metaplasia. This made me concerned for the status quo of gastric patients, as a year of time could mean the difference between life and death for early-stage gastric cancer patients. "
+            "Moreover, cancer has been depicted by the media as this insurmountable obstacle that is almost equivalent to death. I, as an avid consumer of TV shows since a young age, was also influenced by this stereotype. However, as I grew up to become interested in biomedical sciences, I slowly realized that this stereotype isn’t true, and that there has been significant progress made on the journey of combating cancer. "
+            "Because of this and my wish to help gastric patients to reach a diagnosis with better efficiency, I became determined to learn more and innovate new perspectives about this illness, hence this project."
+        ),
+        html.P(
+            "My research uses mass spectrometry imaging of metabolites, a newly emerging field of study, to shed light on novel biomarker discoveries that could aid in understanding the underlying mechanisms of GC, therefore leading to pivotal early diagnosis and targeted drug discovery as well. "
+            "This quick, unsupervised computational pipeline that I developed which processes mass spectrometry imaging data provides fast results from blood samples, speeding up the timeframe needed between sample collection and confirming diagnosis. "
+            "I hope that my own efforts and passion into this project can maximize the efficient utilization of public resources and spread to everyone in need."
+        ),
+        html.P("Navigate this website:"),
+        html.Ul([
+            html.Li([
+                html.I(className='fas fa-info-circle', style={'margin-right': '10px'}),
+                html.P([
+                    html.Strong("This Web Server"), 
+                    " aims to inform and spread awareness about the new field of spatial metabolomics, and how it can be used to enhance diagnosis and treatment of gastric cancer."
+                ])
+            ], style={'display': 'flex', 'align-items': 'center'}),
+            html.Li([
+                html.I(className='fas fa-book-open', style={'margin-right': '10px'}),
+                html.P([
+                    html.Strong("The Introduction"), 
+                    " page provides background information on gastric cancer, the caveats of current treatment methods, as well as an introduction to the role metabolomics play in cancer research. It also includes a flowchart of the methodology of my research project."
+                ])
+            ], style={'display': 'flex', 'align-items': 'center'}),
+            html.Li([
+                html.I(className='fas fa-database', style={'margin-right': '10px'}),
+                html.P([
+                    html.Strong("The Database"), 
+                    " page is an atlas that shows the metabolites and proteins that are associated with gastric cancer."
+                ])
+            ], style={'display': 'flex', 'align-items': 'center'}),
+            html.Li([
+                html.I(className='fas fa-chart-pie', style={'margin-right': '10px'}),
+                html.P([
+                    html.Strong("The Visualization"), 
+                    " page demonstrates the distribution of metabolites with respect to the tumoral space in gastric cancer. Users can input the m/z value of any metabolite within the database, and the visualization webpage can provide real-time visualization feedback of that particular metabolite's spatial and density distribution within the tumor."
+                ])
+            ], style={'display': 'flex', 'align-items': 'center'})
+        ])
+    ],
+        style={"txt_align": "justify",
+        },)
+    return text
+
 import pandas as pd
 
 def make_DatabaseInfo(idFunc,df):
@@ -206,7 +296,7 @@ def make_DatabaseInfo(idFunc,df):
     return database
 
 
-def make_InteractionHeader(idFunc):
+def make_MSIHeader(idFunc):
     """
     Makes the header for the WFA page
     """
@@ -251,102 +341,6 @@ def make_AreasChecklist(idFunc,coarseDict):
     )
     return checklist
 
-def make_InteractionUploadMenu(idFunc):
-    """
-    Makes the layout for the upload menu in the interaction page
-    """
-    uploadMenu = html.Div([
-        html.H6("Upload the metabolite data"),
-        dcc.Upload(
-            id=idFunc('upload-metabolite-data'),
-            children=html.Div([
-                'Drag and Drop or ',
-                html.A('Select Files')
-            ]),
-            style={
-                'width': '100%',
-                'height': '60px',
-                'lineHeight': '60px',
-                'borderWidth': '1px',
-                'borderStyle': 'dashed',
-                'borderRadius': '5px',
-                'textAlign': 'center',
-                'margin': '10px'
-            },
-            # Allow multiple files to be uploaded
-            multiple=True
-        ),
-        html.H6("Or enter metabolite data manually:"),
-        dcc.Textarea(
-            id=idFunc('metabolite-prefill-textarea'),
-            value='1-methyl-L-histidine,'
-            'HMDB0000001,'
-            'CN1C=NC(C[C@H](N)C(O)=O)=C1',
-            style={
-                'width': '100%',
-                'height': '100px',
-                'borderWidth': '1px',
-                'borderStyle': 'dashed',
-                'borderRadius': '5px',
-                'textAlign': 'left',
-                'margin': '10px'
-            }
-        ),
-        html.Div(id=idFunc('metabolite-file')),
-        html.H6("   "), 
-        html.H6("Upload the protein data"),
-        dcc.Upload(
-            id=idFunc('upload-protein-data'),
-            children=html.Div([
-                'Drag and Drop or ',
-                html.A('Select Files')
-            ]),
-            style={
-                'width': '100%',
-                'height': '60px',
-                'lineHeight': '60px',
-                'borderWidth': '1px',
-                'borderStyle': 'dashed',
-                'borderRadius': '5px',
-                'textAlign': 'center',
-                'margin': '10px'
-            },
-            # Allow multiple files to be uploaded
-            multiple=True
-        ),
-        html.Div(id=idFunc('output-protein-data-upload')),
-        html.H6("Or enter protein data manually:"),
-        dcc.Textarea(
-            id=idFunc('protein-prefill-textarea'),
-            value='A0A075B6H7,'
-            'Probable non-functional immunoglobulin kappa variable 3-7,'
-            'IGKV3-7,'
-            'Homo sapiens (Human),'
-            'MEAPAQLLFLLLLWLPDTTREIVMTQSPPTLSLSPGERVTLSCRASQSVSSSY'
-            'LTWYQQKPGQAPRLLIYGASTRATSIPARFSGSGSGTDFTLTISSLQPEDFAVYYCQQDYNLP',
-            style={
-                'width': '100%',
-                'height': '100px',
-                'borderWidth': '1px',
-                'borderStyle': 'dashed',
-                'borderRadius': '5px',
-                'textAlign': 'left',
-                'margin': '10px'
-            }
-        ),
-        html.Div(id=idFunc('protein-file')),
-        dcc.Store(id=idFunc('store-metabolite-data-upload'),storage_type='local',data={}),
-        dcc.Store(id=idFunc('store-protein-data-upload'),storage_type='local',data={}),
-        dbc.Button('Submit', id=idFunc('upload-button'), n_clicks=0),
-    ])
-    return uploadMenu
-
-def make_InteractionTable(idFunc):
-    uploadTable = html.Div([
-        html.Div(id=idFunc('table-metabolite-data-upload')),
-        html.Div(id=idFunc('table-protein-data-upload')),
-    ])
-    return uploadTable
 
 def make_MSISelectionMenu(idFunc, genome_dict):
     """

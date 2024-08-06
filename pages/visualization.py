@@ -79,7 +79,7 @@ layout = dbc.Container([
     lf.make_AboutUsOffCanvas(id),
     lf.make_GeneInfoModal(id),
     dbc.Row(lf.make_NavBar()),                           # Navigation Bar
-    dbc.Row(lf.make_InteractionHeader(id)),            # Big header
+    dbc.Row(lf.make_MSIHeader(id)),            # Big header
     #
     dbc.Row([lf.make_Subtitle('Molecular Visualization on Spatial Metabolomics Data')]),
     dbc.Row([

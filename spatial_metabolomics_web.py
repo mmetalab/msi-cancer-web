@@ -1,6 +1,6 @@
 from dash import Dash, dcc, html, Input, Output
 import dash_bootstrap_components as dbc
-from pages import introduction, database, blankPage, visualization
+from pages import introduction, about, database, blankPage, visualization
 
 
 app = Dash(__name__,
@@ -35,6 +35,8 @@ app.layout = indexLayout
 def display_page(pathname):
     if pathname == '/introduction':
         return introduction.layout
+    elif pathname == '/about':
+        return about.layout
     elif pathname == '/database':
         return database.layout
     elif pathname == '/visualization':
