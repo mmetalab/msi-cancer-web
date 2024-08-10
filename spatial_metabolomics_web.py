@@ -9,7 +9,7 @@ app = Dash(__name__,
 )
 
 indexLayout = html.Div([
-    dcc.Location(id='url', pathname='/introduction', refresh=False),
+    dcc.Location(id='url', pathname='/about', refresh=False),
     html.Div(id='page-content')
 ])
 

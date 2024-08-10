@@ -29,13 +29,13 @@ def make_NavBar():
     """
     navbar = dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink('Introduction', href='/introduction')),
             dbc.NavItem(dbc.NavLink('About', href='/about')),
+            dbc.NavItem(dbc.NavLink('Introduction', href='/introduction')),
             dbc.NavItem(dbc.NavLink('Database', href='/database')),
             dbc.NavItem(dbc.NavLink('Visualization', href='/visualization')),
         ],
         brand='Spatial Metabolomics Visualization Web',
-        brand_href='/introduction',
+        brand_href='/about',
         color='primary',
         fixed='top',
         dark=True,
@@ -87,9 +87,10 @@ def make_AboutHeader(idFunc):
     header = html.Div(
         dbc.Container([
             html.Div([
-                html.H2("About the author", className="display-4"),
+                html.H2("Welcome to Spatial Metabolomics Visualization Web",         
+                        style={'fontSize': '48px'} , # Change the font size here
+                        className="display-4"),
             ], className='d-flex justify-content-between align-items-center mb-0'),
-            
             html.Hr(className="mt-0 mb-1"),
             html.Div([
                 html.P("Introduction to the project and author."),
@@ -225,6 +226,14 @@ def make_aboutText():
             "My research uses mass spectrometry imaging of metabolites, a newly emerging field of study, to shed light on novel biomarker discoveries that could aid in understanding the underlying mechanisms of GC, therefore leading to pivotal early diagnosis and targeted drug discovery as well. "
             "This quick, unsupervised computational pipeline that I developed which processes mass spectrometry imaging data provides fast results from blood samples, speeding up the timeframe needed between sample collection and confirming diagnosis. "
             "I hope that my own efforts and passion into this project can maximize the efficient utilization of public resources and spread to everyone in need."
+        ),
+        html.Video(
+            controls=True,
+            id='my-video',
+            src='/assets/demo.MOV',  # Path to your video file
+            autoPlay=False,
+            loop=False,
+            width='100%'
         ),
         html.P("Navigate this website:"),
         html.Ul([
